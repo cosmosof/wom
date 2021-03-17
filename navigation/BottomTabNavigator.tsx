@@ -1,13 +1,16 @@
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import TabOneScreen from '../screens/TabOneScreen/TabOneScreen';
+import TabTwoScreen from '../screens/TabTwoScreen/TabTwoScreen';
+import TabThreeScreen from '../screens/TabThreeScreen/TabThreeScreen';
+import LinksScreen from '../screens/LinksScreen';
+
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -16,30 +19,41 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
+        name="Home"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} size={24}/>,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Recommendations"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="comment" color={color} size={24}/>,
+        }}
+      />
+      <BottomTab.Screen
+        name="Trends"
+        component={LinksScreen}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarMUCommunityIcon name="head-flash-outline" color={color} size={24}/>,
         }}
       />
     </BottomTab.Navigator>
   );
 }
 
+function TabBarMUCommunityIcon(props: { name: React.ComponentProps<typeof MaterialCommunityIcons>['name']; size: React.ComponentProps<typeof MaterialCommunityIcons>['size']; color: string }) {
+  return <MaterialCommunityIcons size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+function TabBarIcon(props: { name: React.ComponentProps<typeof Octicons>['name']; size: React.ComponentProps<typeof Octicons>['size']; color: string }) {
+  return <Octicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
@@ -58,6 +72,7 @@ function TabOneNavigator() {
   );
 }
 
+
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 function TabTwoNavigator() {
@@ -69,5 +84,20 @@ function TabTwoNavigator() {
         options={{ headerTitle: 'Tab Two Title' }}
       />
     </TabTwoStack.Navigator>
+  );
+}
+
+
+const TabThreeStack = createStackNavigator<TabThreeParamList>();
+
+function TabThreeNavigator() {
+  return (
+    <TabThreeStack.Navigator>
+      <TabThreeStack.Screen
+        name="TabThreeScreen"
+        component={TabThreeScreen}
+        options={{ headerTitle: 'Tab Three Title' }}
+      />
+    </TabThreeStack.Navigator>
   );
 }

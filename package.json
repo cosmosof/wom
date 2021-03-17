@@ -6,10 +6,20 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "storybook": "start-storybook -p 7007",
+    "build-storybook": "build-storybook",
+    "prestorybook": "rnstl",
+    "build-static-webapp":"expo build:web"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/__mocks__/globalMock.js"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
@@ -35,10 +45,35 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@storybook/addon-actions": "^5.3",
+    "@storybook/addon-knobs": "^5.3",
+    "@storybook/addon-links": "^5.3",
+    "@storybook/addon-ondevice-actions": "^5.3.23",
+    "@storybook/addon-ondevice-knobs": "^5.3.25",
+    "@storybook/react-native": "^5.3.25",
+    "@storybook/react-native-server": "^5.3.23",
+    "@testing-library/react-native": "~7.1.0",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
-    "jest-expo": "~40.0.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "eslint": "^6.8.0",
+    "eslint-config-handlebarlabs": "^0.0.4",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "~26.6.3",
+    "jest-expo": "~40.0.1",
+    "jest-fetch-mock": "~3.0.3",
+    "prettier": "^2.2.1",
+    "react-native-storybook-loader": "^2.0.2",
     "typescript": "~4.0.0"
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": ["./screens", "./components"],
+      "pattern": "**/*.stories.js",
+      "outputFile": "./storybook/storyLoader.js"
+    }
   },
   "private": true
 }
