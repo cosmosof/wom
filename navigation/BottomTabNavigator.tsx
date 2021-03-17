@@ -37,7 +37,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Trends"
-        component={LinksScreen}
+        component={TabThreeScreen}
         options={{
           tabBarIcon: ({ color }) => <TabBarMUCommunityIcon name="head-flash-outline" color={color} size={24}/>,
         }}
